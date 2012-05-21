@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <title>Esprima Tracing</title>
+    
+    <script src="esprima.js"></script>
+    <script src="esmorph.js"></script>
+    <script src="jquery.js"></script>
+    <script src="underscore.js"></script>
+    <style>
+      textarea {
+        font-size: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea cols="60" rows="20" class="raw"></textarea>
+    <textarea cols="60" rows="20" class="traced"></textarea>
+    <br/>
+    <input type="button" class="run" value="Run"/>
+  </body>
+  <script>
+    $('.run').click(function() {
+      var raw = $(".raw").val();
+      var traced = esmorph.modify(raw, esmorph.Tracer.FunctionEntrance(customTracer));
+      $('.traced').val(traced);
+    });
+
+  function customTracer(functionInfo) {
+      var trace = 'TRACE.enterFunction(';
+      trace += "'" + functionInfo.name + "', ";
+      trace += functionInfo.loc.start.line + ', ';
+      trace += 'arguments);';
+      return trace;
+  }    
+
+  window.TRACE = {
+      hits: {},
+      enterFunction: function (name, lineNumber) {
+          console.log("Executing ", name, " at line", lineNumber);
+          var key = name + ' at line ' + lineNumber;
+          if (this.hits.hasOwnProperty(key)) {
+              this.hits[key] = this.hits[key] + 1;
+          } else {
+              this.hits[key] = 1;
+          }
+      },
+      getHistogram: function () {
+          var entry,
+              sorted = [];
+          for (entry in this.hits) {
+              if (this.hits.hasOwnProperty(entry)) {
+                  sorted.push({ name: entry, count: this.hits[entry]});
+              }
+          }
+          sorted.sort(function (a, b) {
+              return b.count - a.count;
+          });
+          return sorted;
+      }
+  };  
+  </script>
+</html>

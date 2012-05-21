@@ -1,0 +1,50 @@
+Effective Debugging
+
+Con aplicaciones cada vez más grandes y mantenidas por muchos y distintos tipos de programadores, la necesidad de herramientas y técnicas que permitan encontrar bugs y cuellos de botella en un código de varios miles de líneas se fueincrementando.Enestacharlabuscaremosdar un panorama sobre la forma en la que los navegadores interpretan el código que se carga en una página, cómo este es dibujado en la pantalla y cuales son las formas de optimizar este proceso. Luego veremos como analizar código durante su ejecución para detectar memory leaks y agujeros negros de memoria con el profiler de WebKit y finalmentecomopodemosutilizarEsprima,un parser de JavaScript hecho en JavaScript, para instrumentar código y obtener métricas sobre la ejecución del mismo y detectar las partes lentas en nuestra aplicación.
+
+	- Reflows - Layouts:
+		dom tree \
+		           - render tree -> paint
+		styles   /
+		- El dom tree lo forma el html (despues del parseo)
+			...Y el render tree es formado por el dom tree + styles.
+		- El render tree omite los elementos que estan visualmente ocultos.
+		- Un cambio de fuente no modifica el DOM tree pero si el render tree.
+		- Un reflow es un cambio que necesita de un recalculo en el render tree. A veces puede ser pequeño y otras grande.
+		- que tira un reflow? -> (ver links en slides)
+		- diferencia entre visibility: hidden y display: none.
+		- agrupar los get y los set de propiedades.
+
+	-	Webkit Timeline:
+			- permite registrar absolutamente todo lo que ocurre en la pagina.
+			- permite detectar lineas problematicas o lentas.
+			- muestra el momento donde hay un evento document.load y el document.ready
+			- Esto esta bueno para mostrar que una acción del browser tarda 'x' tiempo más un delta por las consecuencias de esa acción
+			- console.timeStamp('Marcar el timeline')
+			- console.time('Contador') / console.timeEnd('Contador')
+			
+	- Console tips:
+			inspect()
+			copy()
+
+	- Event Debugging
+			- break on subtree modification
+			- listen to events (panel 'Events')
+			- monitorEvents / unmonitorEvents
+			- modificar source inline
+			- pause on exception
+			- conditional breakpoints
+
+	- Profiling
+		- JavaScript profiling para detectar el tiempo de ejecución de cada función.
+		- console.profileStart('profile 1') / console.profileEnd('profile 1')
+		- Se puede analizar todas las funciones ejecutadas durante la sesion de profiling (vista 'Heavy - Bottom Up')
+		- ...o se puede analizar todo el stack para cada función ejecutada (vista 'Tree - Top down')
+		- Podemos sacar dos fotos del heap y compararlas para detectar memory leaks
+			- ...por ejemplo elementos del DOM detacheados que no pueden ser eliminados por el GC (DetachedDOM nodes)
+			- Demo
+
+	- Instrumentación
+		- Demo de Esprima que permite reescribir el código para insertar código de instrumentación.
+		- Instrumentar jQuery / Underscore
+

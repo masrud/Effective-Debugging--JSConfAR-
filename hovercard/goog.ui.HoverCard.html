@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<!-- saved from url=(0081)http://closure-library.googlecode.com/svn/trunk/closure/goog/demos/hovercard.html -->
+<html><!--
+Copyright 2010 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>goog.ui.HoverCard</title>
+    <script src="./goog.ui.HoverCard_files/base.js"></script>
+    <script type="text/javascript" src="./goog.ui.HoverCard_files/deps.js"></script>
+    <script>
+      goog.require('goog.debug.DivConsole');
+      goog.require('goog.debug.Logger');
+      goog.require('goog.debug.LogManager');
+      goog.require('goog.positioning.AnchoredPosition');
+      goog.require('goog.positioning.Corner');
+      goog.require('goog.ui.Component.EventType');
+      goog.require('goog.ui.HoverCard');
+    </script>
+    <!--
+    <script type="text/javascript" src="./goog.ui.HoverCard_files/relativetimeprovider.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/string.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/formatter.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/error.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/asserts.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/array.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/object.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/structs.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/collection.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/iter.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/map.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/set.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/useragent.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/debug.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/logrecord.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/logbuffer.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/logger.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/browserfeature.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/tagname.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/classes.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/coordinate.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/size.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/dom.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/box.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/rect.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/style.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/divconsole.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/bidi.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/positioning.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/abstractposition.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/anchoredposition.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/idisposable.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/disposable.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/entrypointregistry.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/errorhandlerweakdep.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/event.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/eventtype.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/reflect.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/browserevent.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/eventwrapper.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/listener.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/events.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/eventhandler.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/eventtarget.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/idgenerator.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/component.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/timer.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/viewportposition.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/absoluteposition.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/functions.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/anchoredviewportposition.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/clientposition.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/viewportclientposition.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/keycodes.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/transition.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/popupbase.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/popup.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/tooltip.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/advancedtooltip.js"></script><script type="text/javascript" src="./goog.ui.HoverCard_files/hovercard.js"></script>
+    -->
+    <link rel="stylesheet" href="demo.css">
+    <link rel="stylesheet" href="hovercard.css">
+    <style>
+      #personEmail {
+        font-style: italic;
+      }
+      .anchor {
+        font: bold;
+        color: white;
+        background-color: gray;
+        padding: 20px;
+        margin: 20px;
+      }
+    </style>
+    <style>.dbg-sev{color:#F00}.dbg-w{color:#C40}.dbg-sh{font-weight:bold;color:#000}.dbg-i{color:#444}.dbg-f{color:#999}.dbg-ev{color:#0A0}.dbg-m{color:#990}.logmsg{border-bottom:1px solid #CCC;padding:2px}.logsep{background-color: #8C8;}.logdiv{border:1px solid #CCC;background-color:#FCFCFC;font:medium monospace}</style>
+  </head>
+<body screen_capture_injected="true">
+  <h1>goog.ui.HoverCard</h1>
+  <p>
+    Show by mouse position:<br><br><br>
+    <span class="anchor" email="tom@gmail.com">Tom Smith</span>
+    <span class="anchor" email="dick@gmail.com">Dick Jones</span>
+    <span class="anchor" email="harry@gmail.com">Harry Brown</span>
+
+    <br><br><br>Show hovercard to the right:<br><br><br>
+    <span class="anchor" config="right" email="tom@gmail.com">Tom Smith</span>
+    <span class="anchor" config="right" email="dick@gmail.com">Dick Jones</span>
+    <span class="anchor" config="right" email="harry@gmail.com">Harry Brown</span>
+
+    <br><br><br>Show hovercard below:<br><br><br>
+    <span class="anchor" config="down" email="tom@gmail.com">Tom Smith</span>
+    <span class="anchor" config="down" email="dick@gmail.com">Dick Jones</span>
+    <span class="anchor" config="down" email="harry@gmail.com">Harry Brown</span>
+
+    <br><br><br>
+
+  </p>
+
+  
+
+  <!-- Event log. -->
+  <fieldset class="goog-debug-panel">
+    <legend>Event Log</legend>
+    <div id="log" class=" logdiv"><div class="logmsg"> [ &nbsp;4.968s] [demo] <span class="dbg-f">Listening for: trigger, canceltrigger, beforeshow, show, beforehide, hide.</span><br></div><div class="logmsg"> [ &nbsp;5.434s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [ &nbsp;5.496s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [ &nbsp;9.721s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [ 10.137s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [ 10.721s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [ 10.729s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [ 10.761s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [ 10.803s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [ 10.945s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [ 10.969s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [ 10.993s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [ 11.049s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [ 11.089s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [ 11.591s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [ 11.601s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [ 12.073s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [ 12.075s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [ 15.936s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [ 16.439s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [ 16.442s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [ 17.025s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [ 17.026s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [ 17.257s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [ 17.568s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [ 17.649s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [ 18.150s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [ 18.153s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [ 18.418s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [ 18.419s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [ 18.513s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [ 19.015s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [ 19.018s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [ 19.578s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [ 19.579s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [ 19.737s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [ 19.792s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [ 19.825s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [ 20.327s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [ 20.330s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [ 20.443s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [ 20.444s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [ 20.465s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [ 20.640s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [ 21.233s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [ 21.480s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [ 21.497s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [ 21.513s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [ 53.560s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [125.819s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [131.680s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [149.715s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [150.352s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [150.854s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [150.857s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [151.379s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [151.380s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [170.496s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [170.998s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [171.001s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [171.305s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [171.306s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [249.079s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [256.585s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [264.311s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [321.753s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [323.783s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [325.552s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [333.863s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [372.505s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [374.503s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [387.320s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [393.022s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [418.167s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [418.169s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [422.008s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [422.010s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [423.462s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [423.478s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [423.486s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [423.494s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [423.502s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [423.518s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [424.798s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [424.926s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [451.582s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [451.590s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [452.646s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [453.148s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [453.152s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [453.815s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [453.816s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [474.549s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [475.051s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [475.054s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [475.119s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [475.120s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [476.782s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [477.285s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [477.289s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [478.335s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [478.338s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [845.635s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [845.819s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [887.563s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [887.571s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [887.579s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [887.595s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [1049.042s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [1049.106s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [1049.170s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [1049.522s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [1065.970s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [1079.108s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [1082.106s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [1082.114s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [1082.138s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [1087.714s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [1087.718s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [1105.579s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [1105.581s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [1121.138s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [1121.640s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [1121.643s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [1122.722s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [1122.724s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [1126.018s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [1126.137s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [1126.169s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [1126.672s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [1126.676s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [1127.202s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [1127.204s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [1127.265s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [1127.768s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [1127.771s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [1128.162s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [1128.164s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [1154.057s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [1154.089s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [1154.665s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [1155.167s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [1155.171s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [1155.474s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [1155.475s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [1155.505s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [1156.007s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [1156.011s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [1156.298s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [1156.299s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [1156.345s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [1156.847s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [1156.851s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [1157.202s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [1157.203s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [1157.513s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [1158.015s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [1158.019s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [1158.338s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [1158.339s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [1158.353s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [1158.377s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [1158.393s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [1158.417s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2397.401s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2397.441s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2397.473s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2397.641s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2397.681s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2397.705s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2397.729s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2397.745s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2402.521s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2403.022s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [2403.024s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [2403.626s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [2403.626s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [2403.657s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2404.158s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [2404.160s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [2404.449s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [2404.450s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [2404.472s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2404.974s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [2404.976s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [2405.281s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [2405.282s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [2405.360s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2405.862s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [2405.863s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [2406.305s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [2406.306s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [2406.336s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2406.838s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [2406.839s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [2407.409s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [2407.410s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [2407.680s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2408.182s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [2408.183s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [2408.529s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [2408.530s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [2408.560s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2408.576s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2538.200s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2538.216s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2538.224s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2538.232s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2538.240s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2538.256s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2685.071s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2685.334s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2685.383s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2685.686s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2686.174s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2686.270s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2686.382s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2686.574s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2686.606s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2686.838s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2686.870s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2687.166s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2687.326s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2687.582s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2687.646s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2687.782s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2687.862s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2688.134s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2688.222s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2688.724s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [2688.726s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [2689.328s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [2689.328s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [2689.695s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2690.196s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [2690.198s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [2690.624s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [2690.624s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [2691.030s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2691.532s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [2691.533s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [2692.047s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [2692.048s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [2692.094s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2692.596s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [2692.597s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [2693.087s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [2693.088s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [2693.294s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2693.796s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [2693.797s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [2694.111s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [2694.112s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [2694.150s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2694.652s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [2694.653s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [2695.103s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [2695.104s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [2695.150s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2695.652s] [demo] <span class="dbg-i">HoverCard dispatched: beforeshow</span><br></div><div class="logmsg"> [2695.653s] [demo] <span class="dbg-i">HoverCard dispatched: show</span><br></div><div class="logmsg"> [2696.551s] [demo] <span class="dbg-i">HoverCard dispatched: beforehide</span><br></div><div class="logmsg"> [2696.552s] [demo] <span class="dbg-i">HoverCard dispatched: hide</span><br></div><div class="logmsg"> [2753.270s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2753.278s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2753.294s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2753.302s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [2753.310s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [2753.318s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [4784.905s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [4785.009s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [4785.217s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [4785.353s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [4785.377s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [4785.577s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [4785.609s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [4785.641s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div><div class="logmsg"> [4785.657s] [demo] <span class="dbg-i">HoverCard dispatched: trigger</span><br></div><div class="logmsg"> [4785.697s] [demo] <span class="dbg-i">HoverCard dispatched: canceltrigger</span><br></div></div>
+  </fieldset>
+  <br>
+  <div id="perf">14ms</div>
+
+    <div id="profileCard" style="position: absolute; left: 28px; top: 343px; visibility: hidden; display: none; " class="goog-hovercard">
+    <div style="position:relative;left:2px;z-index:100">
+     <table class="goog-hovercard-icons">
+       <tbody><tr>
+         <td>Email</td>
+         <td>Chat</td>
+         <td>More</td>
+       </tr>
+     </tbody></table>
+     <table class="goog-hovercard-content">
+        <tbody><tr>
+           <td valign="top">
+                <span id="personName">Tom Smith</span><br>
+                <span id="personEmail">tom@gmail.com</span>
+           </td>
+        </tr>
+      </tbody></table>
+    </div>
+
+    <script>
+      function writeDiv(top, left) {
+        var width = 300 + 10;
+        var height = 115 + 10;
+        document.write(
+            '<div class="goog-shadow" style="position:absolute;left:' +
+            left + 'px;top:' + top + 'px;width:' +
+            width + 'px;height:' + height + 'px;z-index:10" ></div>\n');
+      }
+
+      var y = 0;
+      var left = 0;
+      var size = 6;
+      for (var i = 0; i < size; ++i) {
+        for (var j = 0; j < size; ++j) {
+          writeDiv(y + i, left + j);
+        }
+      }
+    </script><div class="goog-shadow" style="position:absolute;left:0px;top:0px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:1px;top:0px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:2px;top:0px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:3px;top:0px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:4px;top:0px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:5px;top:0px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:0px;top:1px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:1px;top:1px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:2px;top:1px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:3px;top:1px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:4px;top:1px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:5px;top:1px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:0px;top:2px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:1px;top:2px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:2px;top:2px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:3px;top:2px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:4px;top:2px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:5px;top:2px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:0px;top:3px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:1px;top:3px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:2px;top:3px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:3px;top:3px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:4px;top:3px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:5px;top:3px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:0px;top:4px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:1px;top:4px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:2px;top:4px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:3px;top:4px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:4px;top:4px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:5px;top:4px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:0px;top:5px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:1px;top:5px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:2px;top:5px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:3px;top:5px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:4px;top:5px;width:310px;height:125px;z-index:10"></div>
+<div class="goog-shadow" style="position:absolute;left:5px;top:5px;width:310px;height:125px;z-index:10"></div>
+
+  </div>
+
+  <script>
+      var timer = goog.now();
+
+      // Set up a logger.
+      goog.debug.LogManager.getRoot().setLevel(goog.debug.Logger.Level.ALL);
+      var logger = goog.debug.Logger.getLogger('demo');
+      var logconsole = new goog.debug.DivConsole(goog.dom.getElement('log'));
+      logconsole.setCapturing(true);
+
+      var EVENTS = goog.object.getValues(goog.ui.HoverCard.EventType);
+      logger.fine('Listening for: ' + EVENTS.join(', ') + '.');
+
+      function logEvent(e) {
+        logger.info('HoverCard dispatched: ' + e.type);
+      }
+
+      // Initialize hovercard object.
+      var hc;
+      hc = new goog.ui.HoverCard({SPAN: 'email'});
+      hc.setElement(goog.dom.getElement('profileCard'));
+      goog.events.listen(hc, goog.ui.HoverCard.EventType.TRIGGER,
+                         onTrigger);
+      goog.events.listen(hc, goog.ui.HoverCard.EventType.BEFORE_SHOW,
+                         onBeforeShow);
+
+      hc.className = 'goog-hovercard';
+
+      var config = {
+        'right': goog.positioning.Corner.TOP_RIGHT,
+        'down': goog.positioning.Corner.BOTTOM_LEFT
+      }
+
+      function onTrigger(event) {
+        // Usually, you will only need to respond to the TRIGGER event if
+        // you want hovercard triggers to have different behaviors.
+        var trigger = event.anchor;
+        var conf = trigger.getAttribute("config");
+        var pos = null;
+        if (conf) {
+          pos = new goog.positioning.AnchoredPosition(trigger, config[conf]);
+        }
+        hc.setPosition(pos);
+
+        return true;
+      }
+
+      function onBeforeShow() {
+        // This is where you typically set the contents of your hovercard,
+        // based on the triggering element.
+        var trigger = hc.getAnchorElement();
+        var email = trigger.getAttribute("email");
+        var name = trigger.innerHTML;
+        var emailEl = goog.dom.getElement('personEmail');
+        emailEl.innerHTML = email;
+        var nameEl = goog.dom.getElement('personName');
+        nameEl.innerHTML = name;
+
+        return true;
+      }
+
+      goog.events.listen(hc, EVENTS, logEvent);
+
+      goog.dom.setTextContent(goog.dom.getElement('perf'),
+          (goog.now() - timer) + 'ms');
+
+  </script>
+
+
+<!--
+  <script>
+
+      var timer = goog.now();
+
+      // Set up a logger.
+      goog.debug.LogManager.getRoot().setLevel(goog.debug.Logger.Level.ALL);
+      var logger = goog.debug.Logger.getLogger('demo');
+      var logconsole = new goog.debug.DivConsole(goog.dom.getElement('log'));
+      logconsole.setCapturing(true);
+
+      var EVENTS = goog.object.getValues(goog.ui.HoverCard.EventType);
+      logger.fine('Listening for: ' + EVENTS.join(', ') + '.');
+
+      function logEvent(e) {
+TRACE.enterFunction('logEvent', 13, arguments);
+        logger.info('HoverCard dispatched: ' + e.type);
+      }
+
+      // Initialize hovercard object.
+      var hc;
+      hc = new goog.ui.HoverCard({SPAN: 'email'});
+      hc.setElement(goog.dom.getElement('profileCard'));
+      goog.events.listen(hc, goog.ui.HoverCard.EventType.TRIGGER,
+                         onTrigger);
+      goog.events.listen(hc, goog.ui.HoverCard.EventType.BEFORE_SHOW,
+                         onBeforeShow);
+
+      hc.className = 'goog-hovercard';
+
+      var config = {
+        'right': goog.positioning.Corner.TOP_RIGHT,
+        'down': goog.positioning.Corner.BOTTOM_LEFT
+      }
+
+      function onTrigger(event) {
+TRACE.enterFunction('onTrigger', 33, arguments);
+        // Usually, you will only need to respond to the TRIGGER event if
+        // you want hovercard triggers to have different behaviors.
+        var trigger = event.anchor;
+        var conf = trigger.getAttribute("config");
+        var pos = null;
+        if (conf) {
+          pos = new goog.positioning.AnchoredPosition(trigger, config[conf]);
+        }
+        hc.setPosition(pos);
+
+        return true;
+      }
+
+      function onBeforeShow() {
+TRACE.enterFunction('onBeforeShow', 47, arguments);
+        // This is where you typically set the contents of your hovercard,
+        // based on the triggering element.
+        var trigger = hc.getAnchorElement();
+        var email = trigger.getAttribute("email");
+        var name = trigger.innerHTML;
+        var emailEl = goog.dom.getElement('personEmail');
+        emailEl.innerHTML = email;
+        var nameEl = goog.dom.getElement('personName');
+        nameEl.innerHTML = name;
+
+        return true;
+      }
+
+      goog.events.listen(hc, EVENTS, logEvent);
+
+      goog.dom.setTextContent(goog.dom.getElement('perf'),
+          (goog.now() - timer) + 'ms'); 
+
+  window.TRACE = {
+      hits: {},
+      enterFunction: function (name, lineNumber) {
+          console.log("Executing ", name, " at line", lineNumber);
+          var key = name + ' at line ' + lineNumber;
+          if (this.hits.hasOwnProperty(key)) {
+              this.hits[key] = this.hits[key] + 1;
+          } else {
+              this.hits[key] = 1;
+          }
+      },
+      getHistogram: function () {
+          var entry,
+              sorted = [];
+          for (entry in this.hits) {
+              if (this.hits.hasOwnProperty(entry)) {
+                  sorted.push({ name: entry, count: this.hits[entry]});
+              }
+          }
+          sorted.sort(function (a, b) {
+              return b.count - a.count;
+          });
+          return sorted;
+      }
+  };           
+  </script>
+-->
+
+<style id="_clearly_component__css" type="text/css">#next_pages_container { width: 5px; hight: 5px; position: absolute; top: -100px; left: -100px; z-index: 2147483647 !important; } </style><div id="_clearly_component__next_pages_container"></div></body></html>

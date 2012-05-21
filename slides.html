@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+-->
+
+<html>
+    <head>
+        <title>Effective Debugging en JavaScript</title>
+
+        <meta charset='utf-8'>
+        <script src="jquery.js"></script>        
+        <script src='jsslides.js'></script>
+        <link href="js.css" rel="stylesheet" type="text/css"/>
+    </head>
+  
+    <body style='display: none'>
+
+    <section class='slides layout-regular template-default'>
+      
+        <article>
+            <h1>Effective Debugging</h1>
+            <!-- <h2>(en JavaScript)</h2> -->
+            <!-- <p style="text-align: right; position: relative; top: 200px"><img style="text-align: right" src="zauber.gif"/></p> -->
+        </article>      
+
+        <article style="background-color:#f3f3f3">
+            <p style="text-align: center;"><img  src="zauber.png" width="640"/></p>
+            <h4 style="font-size: 55px; margin-top: 30px">&nbsp;<img src="people.png" style="vertical-align: middle" />&nbsp;&nbsp;<span style="vertical-align: middle" >Damián Méndez Romera</span></h4>
+            <h4 style="text-align: left; margin-top: -50px"><img src="picons03.png" style="vertical-align: middle" width="64"/>&nbsp;&nbsp;&nbsp;<span style="vertical-align: middle">@typeofit</span></h4>
+        </article>      
+
+        <article class="">
+            <h3 class="bigger">Agenda</h3>
+            <ul class="">
+                <li>Reflows</li>
+                <li>Timeline</li>
+                <li>Event Debugging</li>
+                <li>Profiling</li>
+                <li>Instrumentación</li>
+            </ul>
+        </article>        
+
+        <article>
+            <h1 class="center">¿Por qué?</h1>
+        </article>
+
+        <article>
+            <img src="horror.png"/>
+        </article>
+
+        <article onslideenter="$('#rabbit-scream').show()">
+            <p class="center"><img id="rabbit-scream" style="display: none;" src="rabbit-scream.jpg"/></p>
+        </article>
+
+        <article>
+            <h1>Reflows</h1>
+        </article>
+
+        <article>
+            <h3>Reflows</h3>
+            <p style="text-align: center; margin-top: 100px;"><img src="render_steps.png"/></p>
+        </article>
+
+        <article>
+            <h3>Reflows in action</h3>
+            <p style="text-align: center; margin-top: 50px">
+                <video width="640" height="480" controls="controls">
+                    <source src="geckoreflow-mozillaorg.mp4" type="video/mp4"></source>
+                </video>
+            </p>
+        </article>
+
+        <article>
+            <h3>Mas información</h3>
+            <ul>
+                <li>http://gent.ilcore.com/2011/03/how-not-to-trigger-layout-in-webkit.html</li>
+                <li>http://blog.mozilla.org/gen/2009/04/09/how-to-make-your-own-gecko-reflow-video/</li>
+                <li>http://ajaxian.com/archives/when-does-javascript-trigger-reflows-and-rendering</li>
+                <li>http://paulirish.com/2011/dom-html5-css3-performance/</li>
+            </ul>
+        </article>
+
+        <article>
+            <h3>Algunas propiedades que causan un reflow</h3>
+            <ul>
+                <li>clientHeight/Width clientLeft/Top</li>
+                <li>getBoundingClientRect()</li>
+                <li>scrollHeight/Width scrollLeft/Top</li>
+                <li>window.scrollTo</li>
+                <li>Lista completa: <a href="http://goo.gl/SZ4WV">http://goo.gl/SZ4WV</a></li>
+            </ul>
+        </article>
+
+        <article>
+            <h3>¿Como disminuir la cantidad de reflows?</h3>
+            <pre>
+function paintSlow() {
+    var left1 = $('#elem1').css('left');
+    $('#otherElem1').css('left', left);
+
+    var left2 = $('#elem2').css('left');
+    $('#otherElem2').css('left', left);
+}
+
+function paintFast() {
+    var left1 = $('#elem1').css('left');
+    var left2 = $('#elem2').css('left');
+
+    $('#otherElem1').css('left', left);
+    $('#otherElem2').css('left', left);
+}
+            </pre>            
+        </article>
+
+        <article>
+            <p class="center"><img src="timeline-reflow.png"/></p>
+        </article>
+
+        <article>
+            <h1 style="margin-top: 200px">Estrategias</h1>
+            <p>Usar display:none</p>
+            <p>Usar visibility:hidden</p>
+            <p>Clonar un nodo</p>
+            <p>$(...).detach()</p>
+        </article>
+
+        <article>
+            <h1 class="center">Timeline</h1>
+            <p class="" style="font-size: 14pt">
+                Demo Offline:<br/> <a target="_blank" href="hovercard/goog.ui.HoverCard.html">./hovercard/goog.ui.HoverCard.html</a><br/>
+                Demo Online:<br/> <a target="_blank" href="http://closure-library.googlecode.com/svn/trunk/closure/goog/demos/hovercard.html">http://closure-library.googlecode.com/svn/trunk/closure/goog/demos/hovercard.html</a>
+            </p>
+        </article>         
+        
+        <article>
+            <h1 class="center">Event Debugging</h1>
+        </article>        
+
+        <article>
+            <h1 class="center">Profiling</h1>
+            <p class="" style="font-size: 14pt">
+                Demo de Memory Leaks Offline:<br/> <a target="_blank" href="detached-dom/index.html">./detached-dom/index.html</a><br/>
+            </p>             
+        </article>     
+
+        <article>
+            <h1 class="center">Instrumentación</h1>            
+        </article>
+
+        <article>
+            <h3>Instrumentación</h3>
+            <ul>
+                <li>¿Qué es?</li>
+                <li>¿Para qué?</li>
+                <li>¿Cómo?</li>
+            </ul>
+        </article>
+
+        <article>
+            <h3>Google Closure Compiler</h3>
+            <pre>
+MyClass.prototype.myMethod = function() {
+    if (DEBUG_MODE) {
+        console.log('MyClass::myMethod', new Date().getTime());
+    }
+    // ... method code ...
+}                
+            </pre>
+            <h4>Cons:</h4>
+            <ul>
+                <li>No es apto para la gran mayoría de los proyectos</li>
+                <li>No hay metadata automatica (linea, columna, nombre de la función, etc.)</li>
+            </ul>
+        </article>
+
+        <article>
+            <h1 class="center">Esprima!</h1>
+            <h4 style="text-align: right; margin-top: 50px; margin-right: 30px;">from Latin: "to espress yourself"</h4>
+            <h4 style="text-align: right; margin-top: -30px; margin-right: 30px;">esprima.org</h4>
+            <p class="" style="font-size: 14pt">
+                Demo Offline:<br/> <a target="_blank" href="esprima/index.html">./esprima/index.html</a><br/>
+            </p>            
+        </article>
+
+        <article>
+            <h3>Casos de uso</h3>
+            <ul style="margin-top: 120px;">
+                <li>Asistencia en el código: outline view, content assist</li>
+                <li>Modificación: Esmorph, Code Painter, node-falafel</li>
+                <li>Análisis de Cobertura: node-cover, coveraje, CoverJS</li>
+                <li>Generación de código: escodegen</li>
+                <li>Compilación source-to-source ("transpilers"): Marv, LLJS</li>
+            <ul>
+        </article>
+
+        <article>
+            <h1 class="center">¿Preguntas?</h1>
+        </article>
+
+        <article>
+            <h1 class="center">¡Muchas Gracias!</h1>
+        </article>
+
+    </section>
+
+  </body>
+</html>
